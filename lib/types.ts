@@ -1,4 +1,5 @@
 export type Style = 
+  | 'polaroid'
   | 'realistic'
   | 'anime'
   | 'watercolor'
@@ -6,6 +7,10 @@ export type Style =
   | 'pencil-sketch'
   | 'pop-art'
   | 'cyberpunk';
+
+export type Model = 'flux' | 'SD';
+
+export type AvatarRef = 'true' | 'false';
 
 export interface PortraitResponse {
   task_id: string;
