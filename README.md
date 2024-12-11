@@ -25,7 +25,7 @@ ETH: 0xEbf67cd24fa23fde69843cA4119cE946d8c231F5
 
 ## Contributors
 
-[![Contributors](https://contrib.rocks/image?repo=stvlynn/twi.am)](https://github.com/stvlynn/twi.am/graphs/contributors)
+[![Contributors](https://contrib.rocks/image?repo=stvlynn/TwitterInstantPortrait)](https://github.com/stvlynn/TwitterInstantPortrait/graphs/contributors)
 
 ## License
 
