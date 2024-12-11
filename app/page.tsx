@@ -13,9 +13,15 @@ interface FormData {
   model: Model;
 }
 
+interface ResultData {
+  imageUrl: string | undefined;
+  prompt: string | undefined;
+  userId: string | undefined;
+}
+
 export default function Home() {
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<{ imageUrl?: string; prompt?: string; userId?: string } | null>(null);
+  const [result, setResult] = useState<ResultData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [browserLang, setBrowserLang] = useState<string>('en');
   const [showResult, setShowResult] = useState(false);

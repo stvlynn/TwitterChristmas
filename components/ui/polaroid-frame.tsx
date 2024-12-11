@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import html2canvas from 'html2canvas';
 
 interface PolaroidFrameProps {
-  imageUrl: string;
+  imageUrl: string | undefined;
   userId: string;
 }
 
@@ -13,7 +13,7 @@ export function PolaroidFrame({ imageUrl, userId }: PolaroidFrameProps) {
   const formattedDate = format(currentDate, 'yyyy.MM.dd HH:mm');
 
   const handleDownload = async () => {
-    if (!polaroidRef.current) return;
+    if (!polaroidRef.current || !imageUrl) return;
 
     try {
       const canvas = await html2canvas(polaroidRef.current, {
@@ -40,6 +40,8 @@ export function PolaroidFrame({ imageUrl, userId }: PolaroidFrameProps) {
       console.error('Error generating image:', error);
     }
   };
+
+  if (!imageUrl) return null;
 
   return (
     <div className="group relative">
