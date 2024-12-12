@@ -9,6 +9,25 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Twitter Instant Portrait',
   description: 'Generate beautiful AI portraits from Twitter profiles',
+  icons: {
+    icon: [
+      {
+        url: '/favicon.ico',
+        sizes: '32x32',
+        type: 'image/x-icon',
+      },
+      {
+        url: '/favicon.ico',
+        sizes: '16x16',
+        type: 'image/x-icon',
+      }
+    ],
+    apple: {
+      url: '/favicon.ico',
+      sizes: '180x180',
+      type: 'image/x-icon',
+    },
+  },
 };
 
 export default function RootLayout({
@@ -19,6 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
         {/* Global Site Tag (gtag.js) - Google Analytics */}
         {GA_MEASUREMENT_ID && (
           <>
