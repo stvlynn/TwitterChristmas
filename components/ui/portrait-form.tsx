@@ -128,6 +128,15 @@ export function PortraitForm({ onSubmit, isLoading }: PortraitFormProps) {
           'Generate Portrait'
         )}
       </button>
+
+      <a
+        href="https://twi.am"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-4 w-full inline-flex items-center justify-center px-4 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+      >
+        More Analysis
+      </a>
     </form>
   );
 }
