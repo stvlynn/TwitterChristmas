@@ -4,10 +4,11 @@ import html2canvas from 'html2canvas';
 
 interface PolaroidFrameProps {
   imageUrl: string | undefined;
-  userId: string;
+  originalUrl: string | undefined;
+  userId: string | undefined;
 }
 
-export function PolaroidFrame({ imageUrl, userId }: PolaroidFrameProps) {
+export function PolaroidFrame({ imageUrl, originalUrl, userId }: PolaroidFrameProps) {
   const polaroidRef = useRef<HTMLDivElement>(null);
   const currentDate = new Date();
   const formattedDate = format(currentDate, 'yyyy.MM.dd HH:mm');
@@ -18,68 +19,77 @@ export function PolaroidFrame({ imageUrl, userId }: PolaroidFrameProps) {
     try {
       const canvas = await html2canvas(polaroidRef.current, {
         backgroundColor: null,
-        scale: 2, // Higher quality
+        scale: 2,
         logging: false,
-        useCORS: true, // Enable CORS for images
+        useCORS: true,
       });
 
-      // Convert to blob
       canvas.toBlob((blob) => {
         if (!blob) return;
         
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `twitter-portrait-${userId}-${new Date().getTime()}.jpg`;
+        a.download = `twitter-christmas-${userId}-${new Date().getTime()}.jpg`;
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
         document.body.removeChild(a);
-      }, 'image/jpeg', 0.95); // High quality JPEG
+      }, 'image/jpeg', 0.95);
     } catch (error) {
       console.error('Error generating image:', error);
     }
   };
 
-  if (!imageUrl) return null;
+  if (!imageUrl || !originalUrl) return null;
 
   return (
-    <div className="group relative">
-      <div 
-        ref={polaroidRef}
-        className="bg-white rounded-lg shadow-xl p-4 transform transition-transform duration-300 hover:scale-[1.02]" 
-        style={{ aspectRatio: '0.85' }}
-      >
-        {/* Image container - positioned at the top with Polaroid-like margin */}
-        <div className="relative w-full mb-4" style={{ height: '80%' }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={imageUrl}
-            alt="Generated portrait"
-            className="w-full h-full object-cover rounded"
-            crossOrigin="anonymous" // Enable CORS for the image
-          />
-        </div>
-        
-        {/* Polaroid bottom text area */}
-        <div className="flex flex-col items-center space-y-1" style={{ height: '20%' }}>
-          <div className="text-gray-800 font-medium">@{userId}</div>
-          <div className="text-gray-500 text-sm">{formattedDate}</div>
+    <div className="flex gap-12 items-start justify-between max-w-5xl mx-auto">
+      {/* Original Image */}
+      <div className="w-[400px]">
+        <div className="bg-white rounded-lg shadow-xl p-4 transform transition-transform duration-300 hover:scale-[1.02]">
+          <div className="relative w-full" style={{ aspectRatio: '1' }}>
+            <img
+              src={originalUrl}
+              alt="Original Twitter Avatar"
+              className="w-full h-full object-cover rounded"
+            />
+          </div>
+          <div className="mt-4 text-center">
+            <p className="text-gray-600 text-sm font-medium">Original Avatar</p>
+            <p className="text-gray-400 text-xs mt-1">@{userId}</p>
+            <p className="text-gray-400 text-xs mt-1">{formattedDate}</p>
+          </div>
         </div>
       </div>
 
-      {/* Download button - appears on hover */}
-      <button
-        onClick={handleDownload}
-        className="absolute bottom-6 right-6 bg-white/90 backdrop-blur-sm shadow-lg rounded-full p-3 
-                 opacity-0 group-hover:opacity-100 transition-opacity duration-200
-                 hover:bg-white hover:scale-110 transform"
-        title="Download Polaroid"
-      >
-        <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-        </svg>
-      </button>
+      {/* Generated Image */}
+      <div className="w-[400px]">
+        <div 
+          ref={polaroidRef}
+          className="bg-white rounded-lg shadow-xl p-4 transform transition-transform duration-300 hover:scale-[1.02] relative group"
+        >
+          <div className="relative w-full" style={{ aspectRatio: '1' }}>
+            <img
+              src={imageUrl}
+              alt="Generated Christmas Portrait"
+              className="w-full h-full object-cover rounded"
+            />
+          </div>
+          <div className="mt-4 text-center">
+            <p className="text-gray-600 text-sm font-medium">Christmas Portrait</p>
+            <p className="text-gray-400 text-xs mt-1">@{userId}</p>
+            <p className="text-gray-400 text-xs mt-1">{formattedDate}</p>
+          </div>
+
+          <button
+            onClick={handleDownload}
+            className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-red-600 text-white px-6 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 shadow-lg"
+          >
+            Download
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

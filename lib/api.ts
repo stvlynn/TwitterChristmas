@@ -11,7 +11,6 @@ export class APIError extends Error {
 export async function generatePortrait(
   userId: string,
   style: Style,
-  avatar: boolean
 ): Promise<PortraitResponse> {
   try {
     const response = await fetch(`${env.DIFY_BASE_URL}workflows/run`, {
@@ -23,9 +22,7 @@ export async function generatePortrait(
       body: JSON.stringify({
         inputs: {
           user_id: userId,
-          lang: 'zh-Hans',
           style: style,
-          avatar: avatar.toString()
         },
         response_mode: 'blocking',
         user: userId
@@ -38,7 +35,7 @@ export async function generatePortrait(
 
     const data = await response.json();
 
-    if (!data?.data?.outputs?.img?.[0]?.url || !data?.data?.outputs?.prompt) {
+    if (!data?.data?.outputs?.img?.[0]?.url || !data?.data?.outputs?.original?.[0]?.url) {
       throw new APIError('Invalid API response format');
     }
 

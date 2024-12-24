@@ -1,5 +1,4 @@
 export type Style = 
-  | 'polaroid'
   | 'realistic'
   | 'anime'
   | 'watercolor'
@@ -27,7 +26,13 @@ export interface PortraitResponse {
         type?: string;
         filename?: string;
       }>;
-      prompt: string;
+      original: Array<{
+        url: string;
+        dify_model_identity?: string;
+        id?: string;
+        type?: string;
+        filename?: string;
+      }>;
     };
     error?: string | null;
     elapsed_time?: number;

@@ -70,13 +70,19 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+  body {
+    @apply antialiased;
+  }
 }
 
-@layer base {
-  * {
-    @apply border-border;
+@layer components {
+  .animate-snowfall {
+    animation: snowfall var(--snowfall-duration, 3s) linear infinite;
   }
-  body {
-    @apply bg-background text-foreground;
+}
+
+@layer utilities {
+  .backdrop-blur-sm {
+    backdrop-filter: blur(4px);
   }
 }

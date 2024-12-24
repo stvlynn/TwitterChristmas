@@ -7,8 +7,8 @@ import { Toaster } from '@/components/ui/toaster';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Twitter Instant Portrait',
-  description: 'Generate beautiful AI portraits from Twitter profiles',
+  title: 'Twitter Christmas Avatar',
+  description: 'Generate festive AI Christmas portraits from Twitter profiles',
   icons: {
     icon: [
       {
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'Twitter Instant Portrait',
+    title: 'Twitter Christmas Avatar',
   },
 };
 
